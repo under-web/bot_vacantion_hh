@@ -37,7 +37,7 @@ def main():
             url = 'https://kazan.hh.ru/search/vacancy?area=88&fromSearchLine=true&st=searchVacancy&text=Junior+python' \
                   '&from=suggest_post '
             bot.send_message(channel, get_vacantion(get_html(url)))
-            time.sleep(3600)
+            time.sleep(21600)
         except Exception as e:
             time.sleep(10)
 
