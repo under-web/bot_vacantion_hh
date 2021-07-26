@@ -6,8 +6,13 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 bot = telebot.TeleBot(api_token)
-
+# TODO: добавить коментарии
 def get_html(url):
+    """
+    Принимает урл и подменяет юзер-агент
+    :param url:
+    :return: html-text страницы
+    """
     ua = UserAgent()
     headers = {'User-Agent': ua.firefox}
     res = requests.get(url, headers=headers)
