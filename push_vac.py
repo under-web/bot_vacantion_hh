@@ -23,7 +23,6 @@ def get_vacantion(res):
     b_list = []
     soup = BeautifulSoup(res, 'lxml')
     block_vac = soup.find_all('div', class_='vacancy-serp-item')
-
     for i in block_vac:
         title = i.find('a', class_='bloko-link').text
         linkin = i.find('a').get('href')
@@ -44,7 +43,12 @@ def main():
             bot.send_message(channel, get_vacantion(get_html(url)))
             time.sleep(21600)
         except Exception as e:
-            time.sleep(10)
+            if 'API was unsuccessful' in str(e):
+                print('Проверьте доступ API код 401')
+                break
+            else:
+                print('err main', e)
+                time.sleep(10)
 
 
 if __name__ == '__main__':
