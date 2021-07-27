@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 bot = telebot.TeleBot(api_token)
-# TODO: добавить коментарии
+
 def get_html(url):
     """
     Принимает урл и подменяет юзер-агент
@@ -20,6 +20,11 @@ def get_html(url):
 
 
 def get_vacantion(res):
+    """
+    Принимает html текст и парсит вакансии с hh.ru
+    :param res:
+    :return: список в строковом значении
+    """
     b_list = []
     soup = BeautifulSoup(res, 'lxml')
     block_vac = soup.find_all('div', class_='vacancy-serp-item')
@@ -36,11 +41,15 @@ def get_vacantion(res):
     return result_note
 
 def main():
+    """
+    Управляющая функция
+    :return:
+    """
     while True:
         try:
             url = 'https://kazan.hh.ru/search/vacancy?area=88&fromSearchLine=true&st=searchVacancy&text=Junior+python' \
                   '&from=suggest_post '
-            bot.send_message(channel, get_vacantion(get_html(url)))
+            bot.send_message(channel, get_vacantion(get_html(url)))  # Указываем канал и текст который нужно отправить
             time.sleep(21600)
         except Exception as e:
             if 'API was unsuccessful' in str(e):
@@ -48,8 +57,7 @@ def main():
                 break
             else:
                 print('err main', e)
-                time.sleep(10)
-
+                time.sleep(20)
 
 if __name__ == '__main__':
     main()
