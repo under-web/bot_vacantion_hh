@@ -16,5 +16,5 @@ pip install -r req.txt
 ## Запуск
 
 ```
-python main.py
+python push_vac.py
 ```
