@@ -31,7 +31,11 @@ def get_vacantion(res):
     for i in block_vac:
         title = i.find('a', class_='bloko-link').text
         linkin = i.find('a').get('href')
-        salary = i.find('div', class_='vacancy-serp-item__sidebar').text
+        try:
+            salary = i.find('div', class_='vacancy-serp-item__sidebar').text
+        except Exception as e:
+            print('salary err ', e)
+            continue
         if salary == '':
             salary = 'Не указана'
         b_list.append(title + '\n')
@@ -46,18 +50,18 @@ def main():
     :return:
     """
     while True:
-        try:
+        # try:
             url = 'https://kazan.hh.ru/search/vacancy?area=88&fromSearchLine=true&st=searchVacancy&text=Junior+python' \
                   '&from=suggest_post '
             bot.send_message(channel, get_vacantion(get_html(url)))  # Указываем канал и текст который нужно отправить
             time.sleep(21600)
-        except Exception as e:
-            if 'API was unsuccessful' in str(e):
-                print('Проверьте доступ API код 401')
-                break
-            else:
-                print('err main', e)
-                time.sleep(20)
+        # except Exception as e:
+        #     if 'API was unsuccessful' in str(e):
+        #         print('Проверьте доступ API код 401')
+        #         break
+        #     else:
+        #         print('err main', e)
+        #         time.sleep(20)
 
 if __name__ == '__main__':
     main()
